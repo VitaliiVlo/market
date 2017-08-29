@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}"> {% endblock css %}
+
+{% block content %}
+
+    <div class="container">
+        {% if not contains %}
+            <h1 style="text-align: center">Корзина пуста</h1>
+        {% else %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Кол-во</th>
+                            <th>Цена</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        <tr class="summary">
+                            <td></td>
+                            <td>Итого:</td>
+                            <td colspan="2" id="total_price">{{ sum.total_price__sum }}</td>
+                        </tr>
+                        </tfoot>
+
+                        <tbody>
+                        {% for el in products_in_basket %}
+                            <tr id="product{{ el.id }}">
+                                <td><a href="{% url 'product_page' el.product.id %}">{{ el.product.name }}</a></td>
+                                <td>
+                                    <input onkeyup="calculate(event,{{ el.id }})" onkeypress="change_number(event)"
+                                           type="text" value="{{ el.nmb }}" class="number">
+                                </td>
+                                <td id="price{{ el.id }}" data-price="{{ el.product.price }}">{{ el.total_price }}</td>
+                                <td>
+                                    <button onclick="delete_from_basket('{{ el.id }}')" class="btn btn-xs btn-primary">
+                                        &times;
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="row" id="show_form">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <button class="btn btn-primary btn-block" onclick="show_form()">Перейти к оформлению заказа</button>
+                </div>
+            </div>
+
+            <div class="row" id="form" hidden>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <form>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name" class="control-label">Имя:</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="control-label">Адрес:</label>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+                        <div class="form-group">
+                            <label for=phone class="control-label">Телефон:</label>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="control-label">Email:</label>
+                            <input type="text" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment" class="control-label">Коментарии:</label>
+                            <textarea class="form-control" id="comment" rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <pre id="fails" hidden></pre>
+                            <button type="button" class="btn btn-primary btn-block" onclick="send_order()">Подтвердить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/basket.js' %}"></script> {% endblock js %}
+

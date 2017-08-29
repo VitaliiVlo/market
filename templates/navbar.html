@@ -1,0 +1,25 @@
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Vmarket</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url "myorders" %}">Мои заказы</a></li>
+                    <li><a href="{% url 'basket_page' %}">Корзина <span
+                            class="badge">{{ request.user.productinbasket_set.all.count }}</span></a>
+                    </li>
+                    <li><a href="{% url "userout" %}">Выход</a></li>
+                {% else %}
+                    <li><a href="{% url "loginpage" %}">Вход/Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

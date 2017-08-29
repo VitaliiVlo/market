@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ category_object.name }}{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/category.css" %}"> {% endblock css %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <h3 class="title">Фильтры</h3>
+                <div>
+                    <form id="filters">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="sort" class="control-label">Сортировка по:</label>
+                            <select class="form-control" id="sort" name="sort">
+                                <option value="name">Имени</option>
+                                <option value="cheap">От дешевых к дорогим</option>
+                                <option value="expensive">От дорогих к дешевым</option>
+                                <option value="rating">Оценке</option>
+                                <option value="created">Новизне</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <p class="price">Цена:</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                    <label for='price_from' class="control-label">От:</label>
+                                    <input type="number" class="form-control" id="price_from" name="price_from">
+                                </div>
+                                <div class="col-xs-5 col-xs-offset-2 col-sm-5 col-sm-offset-2
+                            col-md-5 col-md-offset-2 col-lg-5 col-lg-offset-2">
+                                    <label for='price_to' class="control-label">До:</label>
+                                    <input type="number" class="form-control" id="price_to" name="price_to">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="show_products()" class="btn btn-primary btn-block">Показать</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="container-fluid">
+                    <div class="row new">
+                        <h3 class="title">{{ category.name }}</h3>
+                        <div id="products">
+                            {% include 'product_list.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static "js/category.js" %}"></script> {% endblock js %}

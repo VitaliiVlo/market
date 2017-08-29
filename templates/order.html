@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои заказы{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/order.css' %}"> {% endblock css %}
+
+{% block content %}
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {% if not contains %}
+                    <h1 style="text-align: center">Заказов нет</h1>
+                {% else %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Статус</th>
+                            <th>Сумма</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for order in orders %}
+                            <tr id="order{{ order.id }}">
+                                <td>{{ order.created|date:'d-m-Y' }}</td>
+                                <td id="status{{ order.id }}">{{ order.status.name }}</td>
+                                <td>{{ order.total_price }}</td>
+                                <td>
+                                    <button onclick="showinfo('{{ order.id }}')" class="btn btn-primary btn-xs">
+                                        <span id="span{{ order.id }}"><span class="caret"></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr id="info_order{{ order.id }}" style="display: none">
+                                <td colspan="4" class="myinfo">
+                                    <div>
+
+                                        <p><strong>Имя:</strong> {{ order.customer_name }}</p>
+                                        <p><strong>Email:</strong> {{ order.customer_email }}</p>
+                                        <p><strong>Телефон:</strong> {{ order.customer_phone }}</p>
+                                        <p><strong>Адрес:</strong> {{ order.customer_address }}</p>
+                                        <p><strong>Комментарии:</strong> {{ order.comments }}</p>
+                                        <p><strong>Товары: </strong></p>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <td>Имя</td>
+                                                <td>Кол-во</td>
+                                                <td>Цена</td>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {% for el in order.productinorder_set.all %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{% url 'product_page' el.product.id %}">{{ el.product.name }}</a>
+                                                    </td>
+                                                    <td>{{ el.nmb }} </td>
+                                                    <td>{{ el.total_price }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        <button type="button" class="btn btn-primary btn-block cancel"
+                                                onclick="cancel_order({{ order.id }})">Отменить
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% csrf_token %}
+
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/order.js' %}"></script> {% endblock js %}

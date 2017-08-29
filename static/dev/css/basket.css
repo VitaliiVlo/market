@@ -1,0 +1,16 @@
+.summary {
+    font-weight: bold;
+    font-size: 15px;
+    background-color: orange;
+}
+
+#comment {
+    resize: none;
+}
+
+.number {
+    width: 50px;
+    border-radius: 8px;
+    border-color: red;
+    text-align: center;
+}

@@ -1,0 +1,16 @@
+#reg-ok {
+    font-weight: bold;
+    text-align: center;
+}
+
+#auth-error {
+    font-weight: bold;
+    color: red;
+    text-align: center;
+}
+
+#log-window {
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid silver;
+}

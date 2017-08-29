@@ -1,0 +1,60 @@
+#price {
+    font-weight: bold;
+    font-size: 28px;
+    padding: 10px;
+}
+
+.new {
+    border-right: 1px solid silver;
+    border-left: 1px solid silver;
+}
+
+.carousel-indicators li{
+    border-color: red;
+}
+
+.carousel-indicators li.active{
+    background-color: red;
+}
+
+.carousel-inner .item {
+    height: 500px;
+}
+
+.carousel-inner .item img {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: auto;
+}
+
+.comment{
+    margin-top: 18px;
+}
+
+.comment-date{
+    color: silver;
+    text-align: right;
+}
+
+textarea{
+resize: none;
+}
+
+#rate{
+    font-size: 14px;
+}
+/*.carousel-inner .item img {*/
+/*position: absolute;*/
+/*left: 0;*/
+/*right: 0;*/
+/*top: 0;*/
+/*bottom: 0;*/
+/*margin: auto;*/
+/*}*/
+/*.carousel-inner .item{*/
+/*height: 500px;*/
+/*}*/

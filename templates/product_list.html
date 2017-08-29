@@ -1,0 +1,17 @@
+{% for img in images %}
+    <div class="col-sm-4 col-md-4 col-lg-4 new-object">
+
+        <img class="img-rounded" src="{{ img.image.url }}">
+        <h3 id="name"><strong>{{ img.product.name }}</strong></h3>
+        <div id="infoblock">
+            <div id="wrapper">
+                <p><strong>Отзывы: </strong>{{ img.product.comment_set.all.count }}</p>
+                <p><strong>Оценка: </strong>{{ img.product.average_rating }}/5</p>
+                <p><strong>{{ img.product.price }} грн</strong></p>
+            </div>
+            <a href="{% url "product_page" img.product.id %}"
+               class="btn btn-primary btn-block">Подробнее</a>
+        </div>
+
+    </div>
+{% endfor %}
