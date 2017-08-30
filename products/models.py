@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Avg
@@ -34,7 +35,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, blank=True, null=True, default=None)
-    image = models.ImageField(upload_to='img/')
+    image = CloudinaryField('image')
     is_main = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)

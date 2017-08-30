@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '42jhm=!xplrw1o*x_spy6(-h=0$4xbvskpr)0r))nkt9ltu&ll'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,6 +85,10 @@ DATABASES = {
     }
 }
 
+import  dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -124,9 +128,7 @@ USE_TZ = True
 
 LOGIN_URL = '/login/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
-MEDIA_URL = '/media/'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static", "dev")]
 STATIC_ROOT = os.path.join(BASE_DIR, "static", "prod")
